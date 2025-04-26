@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nti_r2/features/auth/views/login_view.dart';
 
 import 'core/utils/app_text_styles.dart';
 import 'features/home/views/home_view.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: AppTextStyles.fontFamily
       ),
-      home: HomeView(),
+      home: LoginView(),
     );
   }
 }
