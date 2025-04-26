@@ -15,7 +15,12 @@ class LoginCubit extends Cubit<LoginState>
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-
+  bool showPassword = false;
+  void changePasswordVisibility()
+  {
+    showPassword = !showPassword;
+    emit(LoginChangePassState());
+  }
   void onLoginPressed()
   {
     emit(LoginLoadingState());

@@ -41,6 +41,11 @@ class LoginView extends StatelessWidget {
                         ),
                         SizedBox(height: 20,),
                         TextFormField(
+                          obscureText: LoginCubit.get(context).showPassword,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(onPressed: LoginCubit.get(context).changePasswordVisibility,
+                                icon: Icon(Icons.lock))
+                          ),
                           controller: LoginCubit.get(context2).passwordController,
                           validator: (String? value)
                           {
