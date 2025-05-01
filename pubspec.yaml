@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg:
   flutter_bloc: ^9.1.0
+  get: ^4.7.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +83,13 @@ flutter:
        - asset: assets/fonts/Lexend_Deca/LexendDeca-Regular.ttf
        - asset: assets/fonts/Lexend_Deca/LexendDeca-Bold.ttf
        - asset: assets/fonts/Lexend_Deca/LexendDeca-Light.ttf
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Black.ttf
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-ExtraBold.ttf
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-ExtraLight.ttf
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Medium.ttf
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-SemiBold.ttf
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Thin.ttf
+
 
   #         style: italic
   #   - family: Trajan Pro

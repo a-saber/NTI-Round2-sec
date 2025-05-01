@@ -10,7 +10,6 @@ class LoginCubit extends Cubit<LoginState>
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  String? _error;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -24,19 +23,13 @@ class LoginCubit extends Cubit<LoginState>
   void onLoginPressed()
   {
     emit(LoginLoadingState());
-    _error = null;
     if(!formKey.currentState!.validate())
-    {
-      _error = 'Complete the form and fix errors';
-    }
-    if(_error == null)
     {
       emit(LoginSuccessState());
     }
     else
     {
-      emit(LoginErrorState(_error!));
+      emit(LoginErrorState("Complete Data"));
     }
-    print(_error);
   }
 }

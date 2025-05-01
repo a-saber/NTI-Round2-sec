@@ -1,8 +1,9 @@
 abstract class AppAssets
 {
-  static const String imageBasePath= "assets/images/";
-  static const String noDataAvatar = "${imageBasePath}nodata_vector.svg";
-  static const String addIcon = "${imageBasePath}add_icon.svg";
-  static const String logo = "${imageBasePath}logo.png";
+  // base path
+  static const String basePath = "assets/images/";
 
+  static const String logo = "${basePath}logo.svg";
+  static const String flag = "${basePath}logo.png";
+  static const String getStart = "${basePath}get_start.svg";
 }

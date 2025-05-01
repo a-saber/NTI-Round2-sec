@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomSvg extends StatelessWidget {
-  const CustomSvg({super.key,
-    required this.path,
-     this.height,
-     this.width,
-    this.fit = BoxFit.contain});
+  const CustomSvg({super.key, required this.path, this.height, this.width});
 
   final String path;
   final double? height;
   final double? width;
-  final BoxFit fit;
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(path,
-    height: height,
-    width: width,
-    fit: fit,
-    );
+    return SvgPicture.asset(path, height: height, width: width);
   }
 }
