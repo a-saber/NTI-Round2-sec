@@ -12,4 +12,9 @@ abstract class TranslationKeys
   static const register ="Register";
   static const login ="login";
   static const hello ="hello";
+  static const addTask ="addTask";
+  static const title ="title";
+  static const description ="description";
+  static const group ="group";
+  static const endDate ="endDate";
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:nti_r2/core/helper/my_navigator.dart';
 import 'package:nti_r2/core/helper/my_responsive.dart';
 import 'package:nti_r2/core/translation/translation_keys.dart';
 import 'package:nti_r2/core/utils/app_assets.dart';
@@ -8,12 +9,22 @@ import 'package:nti_r2/core/utils/app_colors.dart';
 import 'package:nti_r2/features/home/cubit/user_cubit/user_cubit.dart';
 import 'package:nti_r2/features/home/cubit/user_cubit/user_state.dart';
 
+import '../../add_task/views/add_task_view.dart';
+
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        backgroundColor: AppColors.primary,
+        child: Icon(Icons.add,color: AppColors.white,),
+        onPressed: ()
+        {
+          MyNavigator.goTo(screen: ()=> AddTaskView());
+        }),
       appBar: AppBar(
        toolbarHeight: MyResponsive.height(context, value: 80),
         title: BlocBuilder<UserCubit, UserState>(
