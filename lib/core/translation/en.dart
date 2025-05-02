@@ -4,4 +4,5 @@ Map<String, String> en =
 {
   TranslationKeys.login: 'Login',
   TranslationKeys.register: 'Register',
+  TranslationKeys.hello: 'Hello',
 };

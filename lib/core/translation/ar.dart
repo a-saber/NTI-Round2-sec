@@ -4,4 +4,5 @@ Map<String, String> ar =
 {
   TranslationKeys.login: 'تسجيل الدخول',
   TranslationKeys.register: 'انشاء حساب',
+  TranslationKeys.hello: 'مرحباً',
 };

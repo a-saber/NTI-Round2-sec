@@ -10,6 +10,8 @@ import 'package:nti_r2/core/widgets/custom_filled_btn.dart';
 import 'package:nti_r2/core/widgets/custom_form_field.dart';
 import 'package:nti_r2/features/auth/manager/login_cubit/login_state.dart';
 import 'package:nti_r2/features/auth/manager/login_cubit/login_cubit.dart';
+import 'package:nti_r2/features/home/cubit/user_cubit/user_cubit.dart';
+import 'package:nti_r2/features/home/views/home_view.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -44,11 +46,13 @@ class LoginView extends StatelessWidget {
               {
                 if(state is LoginErrorState)
                 {
-                  Get.showSnackbar(GetSnackBar(title: state.error,));
+                  Get.showSnackbar(GetSnackBar(message: state.error,));
+
                 }
                 else if(state is LoginSuccessState)
                 {
-                  MyNavigator.goTo(screen: ()=> LoginView());
+                  UserCubit.get(context).getUserData(user: state.userModel);
+                  MyNavigator.goTo(screen: ()=> HomeView(), isReplace: true);
                 }
               },
               builder: (context, state)

@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:nti_r2/core/helper/my_responsive.dart';
+import 'package:nti_r2/core/translation/translation_keys.dart';
+import 'package:nti_r2/core/utils/app_assets.dart';
+import 'package:nti_r2/core/utils/app_colors.dart';
+import 'package:nti_r2/features/home/cubit/user_cubit/user_cubit.dart';
+import 'package:nti_r2/features/home/cubit/user_cubit/user_state.dart';
+
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+       toolbarHeight: MyResponsive.height(context, value: 80),
+        title: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            return Row(
+              children:
+              [
+                Container(
+                  margin: EdgeInsetsDirectional.only(end: 16),
+                  height: MyResponsive.height(context, value: 60),
+                  width: MyResponsive.height(context, value: 60),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: AssetImage(AppAssets.flag),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                    [
+                      Text(TranslationKeys.hello.tr,
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            color: AppColors.black
+                        ),
+                      ),
+                      SizedBox(height: 4,),
+                      if(state is UserGetSuccess)
+                      Text(state.userModel.userName??'No Name',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: AppColors.black
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

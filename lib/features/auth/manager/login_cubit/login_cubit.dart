@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nti_r2/features/home/data/models/user_model.dart';
 
 import 'login_state.dart';
 
@@ -23,9 +24,10 @@ class LoginCubit extends Cubit<LoginState>
   void onLoginPressed()
   {
     emit(LoginLoadingState());
-    if(!formKey.currentState!.validate())
+    if(formKey.currentState!.validate())
     {
-      emit(LoginSuccessState());
+      UserModel userModel = UserModel(userName: emailController.text,);
+      emit(LoginSuccessState(userModel));
     }
     else
     {

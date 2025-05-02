@@ -11,4 +11,5 @@ abstract class TranslationKeys
   static const letStart ="Let’s Start";
   static const register ="Register";
   static const login ="login";
+  static const hello ="hello";
 }
