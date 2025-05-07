@@ -31,6 +31,7 @@ class AddTaskView extends StatelessWidget {
               child: Column(
                 children:
                 [
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: ClipRRect(

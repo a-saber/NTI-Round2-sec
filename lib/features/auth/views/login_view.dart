@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:nti_r2/core/helper/my_navigator.dart';
 import 'package:nti_r2/core/helper/my_validator.dart';
-import 'package:nti_r2/core/translation/translation_helper.dart';
 import 'package:nti_r2/core/translation/translation_keys.dart';
 import 'package:nti_r2/core/utils/app_assets.dart';
 import 'package:nti_r2/core/widgets/custom_filled_btn.dart';
@@ -12,6 +11,8 @@ import 'package:nti_r2/features/auth/manager/login_cubit/login_state.dart';
 import 'package:nti_r2/features/auth/manager/login_cubit/login_cubit.dart';
 import 'package:nti_r2/features/home/cubit/user_cubit/user_cubit.dart';
 import 'package:nti_r2/features/home/views/home_view.dart';
+
+import 'register_view.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -83,23 +84,36 @@ class LoginView extends StatelessWidget {
                             text: TranslationKeys.login.tr
                         ),
                         SizedBox(height: 10,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: CustomFilledBtn(onPressed: ()
+                        //       {
+                        //         TranslationHelper.changeLanguage(true);
+                        //       },
+                        //           text: "ar"
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       child: CustomFilledBtn(onPressed: ()
+                        //       {
+                        //         TranslationHelper.changeLanguage(false);
+                        //       },
+                        //           text: "en"
+                        //       ),
+                        //     ),
+                        //   ],
+                        // )
                         Row(
-                          children: [
-                            Expanded(
-                              child: CustomFilledBtn(onPressed: ()
-                              {
-                                TranslationHelper.changeLanguage(true);
-                              },
-                                  text: "ar"
-                              ),
-                            ),
-                            Expanded(
-                              child: CustomFilledBtn(onPressed: ()
-                              {
-                                TranslationHelper.changeLanguage(false);
-                              },
-                                  text: "en"
-                              ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:
+                          [
+                            Text('Don\'t have an account?'),
+                            TextButton(onPressed: ()
+                            {
+                              MyNavigator.goTo(screen: ()=> RegisterView());
+                            },
+                                child: Text(TranslationKeys.register.tr)
                             ),
                           ],
                         )
