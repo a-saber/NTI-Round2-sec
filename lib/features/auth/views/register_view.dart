@@ -93,7 +93,7 @@ class RegisterView extends StatelessWidget {
                           ),
                           SizedBox(height: 20,),
                           CustomFormField(
-                            validator: EmailValidator(),
+                            validator: RequiredValidator(),
                             controller: RegisterCubit.get(context).emailController,
                           ),
                           SizedBox(height: 20,),
@@ -107,13 +107,18 @@ class RegisterView extends StatelessWidget {
                           SizedBox(height: 20,),
                           CustomFormField(
                             obscureText:RegisterCubit.get(context).showConfirmPassword,
-                            validator: PasswordValidator(confirm: RegisterCubit.get(context).passwordController.text),
+                            validator: PasswordValidator(
+                                confirm: RegisterCubit.get(context).passwordController.text
+                            ),
                           suffixIcon: IconButton(onPressed: RegisterCubit.get(context).changeConfirmPasswordVisibility,
                               icon: Icon(Icons.lock)),
                             controller: RegisterCubit.get(context).passwordConfirmController,
                           ),
                           SizedBox(height: 20,),
 
+                          state is RegisterLoadingState ?
+                          Center(child: CircularProgressIndicator(),)
+                              :
                           CustomFilledBtn(onPressed: RegisterCubit.get(context).onRegisterPressed,
                               text: TranslationKeys.register
                           )

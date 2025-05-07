@@ -28,28 +28,29 @@ class ImageManagerView extends StatelessWidget {
         },
         builder: (context, state)
         {
-          if(state is ImageManagerPickedState)
-          {
-            if(pickedBody != null) return pickedBody!(state.image);
-            return Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: FileImage(File(state.image.path)),
-                  fit: BoxFit.cover
-                )
-              ),
-            );
-          }
-          if(unPickedBody != null) {
-            return InkWell(
-              onTap: ImageManagerCubit.get(context).pickImage,
-              child: unPickedBody!);
-          }
-          return IconButton(
-            onPressed: ImageManagerCubit.get(context).pickImage,
-            icon: Icon(Icons.image)
+          return InkWell(
+            onTap: ImageManagerCubit.get(context).pickImage,
+            child: Builder(builder: (context)
+            {
+              if(state is ImageManagerPickedState)
+              {
+                if(pickedBody != null) return pickedBody!(state.image);
+                return Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(File(state.image.path)),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                );
+              }
+              if(unPickedBody != null) {
+                return unPickedBody!;
+              }
+              return Icon(Icons.image);
+            }),
           );
 
         },

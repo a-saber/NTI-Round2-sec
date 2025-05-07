@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nti_r2/features/auth/data/repo/auth_repo.dart';
 
 import 'Register_state.dart';
 
@@ -10,6 +11,8 @@ class RegisterCubit extends Cubit<RegisterState>
   RegisterCubit():super(RegisterInitState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
+
+  AuthRepo authRepo = AuthRepo();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -29,16 +32,21 @@ class RegisterCubit extends Cubit<RegisterState>
     showConfirmPassword = !showConfirmPassword;
     emit(RegisterChangePassState());
   }
-  void onRegisterPressed()
+  void onRegisterPressed()async
   {
-    emit(RegisterLoadingState());
     if(formKey.currentState!.validate())
     {
-      emit(RegisterSuccessState());
-    }
-    else
-    {
-      emit(RegisterErrorState('Complete the data'));
+      emit(RegisterLoadingState());
+      var result = await authRepo.register(username: emailController.text, password: passwordController.text);
+      result.fold(
+        (String error) // left
+        {
+          emit(RegisterErrorState(error));
+        },
+        (r) // right
+        {
+          emit(RegisterSuccessState());
+        });
     }
 
   }
