@@ -6,6 +6,7 @@ import 'package:nti_r2/core/helper/my_responsive.dart';
 import 'package:nti_r2/core/translation/translation_keys.dart';
 import 'package:nti_r2/core/utils/app_assets.dart';
 import 'package:nti_r2/core/utils/app_colors.dart';
+import 'package:nti_r2/features/auth/views/login_view.dart';
 import 'package:nti_r2/features/home/cubit/user_cubit/user_cubit.dart';
 import 'package:nti_r2/features/home/cubit/user_cubit/user_state.dart';
 
@@ -27,7 +28,12 @@ class HomeView extends StatelessWidget {
         }),
       appBar: AppBar(
        toolbarHeight: MyResponsive.height(context, value: 80),
-        title: BlocBuilder<UserCubit, UserState>(
+        title: BlocConsumer<UserCubit, UserState>(
+          listener: (context, state) {
+            if(state is UserGetError) {
+              MyNavigator.goTo(screen: LoginView(), isReplace: true);
+            }
+          },
           builder: (context, state) {
             return Row(
               children:

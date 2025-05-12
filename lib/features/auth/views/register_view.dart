@@ -49,6 +49,7 @@ class RegisterView extends StatelessWidget {
                 },
                 builder: (context, state)
                 {
+                  print('call');
                   return Form(
                     key: RegisterCubit.get(context).formKey,
                     child: Padding(

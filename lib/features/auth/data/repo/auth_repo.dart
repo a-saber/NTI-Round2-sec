@@ -66,7 +66,8 @@ class AuthRepo
           'password': password
         }
       );
-      LoginResponseModel loginResponseModel = LoginResponseModel.fromJson( response.data);
+      LoginResponseModel loginResponseModel =
+      LoginResponseModel.fromJson( response.data);
       if(loginResponseModel.status != null && loginResponseModel.status == true)
       {
         // store tokens

@@ -8,6 +8,7 @@ import 'package:nti_r2/core/utils/app_assets.dart';
 import 'package:nti_r2/core/utils/app_colors.dart';
 import 'package:nti_r2/core/widgets/custom_svg.dart';
 import 'package:nti_r2/features/auth/views/login_view.dart';
+import 'package:nti_r2/features/home/cubit/user_cubit/user_cubit.dart';
 import 'package:nti_r2/features/home/views/home_view.dart';
 
 import 'get_start_view.dart';
@@ -41,7 +42,7 @@ class _SplashViewState extends State<SplashView> {
             CacheData.accessToken = CacheHelper.getData(key: CacheKeys.accessToken);
             if(CacheData.accessToken != null)
             {
-              // TODO:
+              UserCubit.get(context).getUserDataFromAPI();
               MyNavigator.goTo(screen: ()=> HomeView(), isReplace: true);
             }
             else

@@ -10,7 +10,10 @@ class AddTaskChangeImageState extends AddTaskState{}
 
 class AddTaskLoadingState extends AddTaskState{}
 
-class AddTaskSuccessState extends AddTaskState{}
+class AddTaskSuccessState extends AddTaskState{
+  String message;
+  AddTaskSuccessState({required this.message});
+}
 
 class AddTaskErrorState extends AddTaskState
 {
