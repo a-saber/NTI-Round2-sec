@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nti_r2/core/network/api_helper.dart';
 import 'package:nti_r2/core/network/end_points.dart';
 
@@ -7,7 +8,8 @@ class AuthRepo
 {
   ApiHelper apiHelper = ApiHelper();
 
-   Future<Either<String, void>> register({required String username, required String password})async
+   Future<Either<String, void>> register({required String username, required String password,
+     required XFile? image})async
   {
     try
     {
@@ -16,7 +18,9 @@ class AuthRepo
         data:
         {
           'username': username,
-          'password': password
+          'password': password,
+          'image': image == null ? null :
+          await MultipartFile.fromFile(image.path, filename: image.name),
         }
       );
       return Right(null);

@@ -21,6 +21,7 @@ class PasswordValidator extends AppValidator {
     if (value == null || value.isEmpty) return 'Password is required';
     if(confirm !=null)
     {
+      print("$confirm $value");
       // check equality
       if(confirm != value)
       {

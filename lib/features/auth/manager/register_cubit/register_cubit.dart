@@ -19,6 +19,7 @@ class RegisterCubit extends Cubit<RegisterState>
   TextEditingController passwordConfirmController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  String getPassword() => passwordController.text;
   XFile? image;
   bool showPassword = false;
   bool showConfirmPassword = false;
@@ -37,7 +38,11 @@ class RegisterCubit extends Cubit<RegisterState>
     if(formKey.currentState!.validate())
     {
       emit(RegisterLoadingState());
-      var result = await authRepo.register(username: emailController.text, password: passwordController.text);
+      var result = await authRepo.register(
+        username: emailController.text,
+        password: passwordController.text,
+        image: image
+      );
       result.fold(
         (String error) // left
         {
