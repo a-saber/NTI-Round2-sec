@@ -66,7 +66,7 @@ class LoginView extends StatelessWidget {
                       children:
                       [
                         CustomFormField(
-                          validator: EmailValidator(),
+                          validator: RequiredValidator(),
                           controller: LoginCubit.get(context).emailController,
                         ),
                         SizedBox(height: 20,),
@@ -78,8 +78,9 @@ class LoginView extends StatelessWidget {
                               icon: Icon(Icons.lock)),
                         ),
                         SizedBox(height: 20,),
-
-
+                        state is LoginLoadingState?
+                        CircularProgressIndicator()
+                        :
                         CustomFilledBtn(onPressed: LoginCubit.get(context).onLoginPressed,
                             text: TranslationKeys.login.tr
                         ),

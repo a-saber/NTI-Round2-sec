@@ -39,7 +39,11 @@ class HomeView extends StatelessWidget {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage(AppAssets.flag),
+                          image: state is UserGetSuccess &&
+                          state.userModel.imagePath!=null?
+                          NetworkImage(state.userModel.imagePath!)
+                            :
+                          AssetImage(AppAssets.flag),
                           fit: BoxFit.cover
                       )
                   ),
@@ -58,7 +62,7 @@ class HomeView extends StatelessWidget {
                       ),
                       SizedBox(height: 4,),
                       if(state is UserGetSuccess)
-                      Text(state.userModel.userName??'No Name',
+                      Text(state.userModel.username??'No Name',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w300,

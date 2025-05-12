@@ -19,7 +19,6 @@ class RegisterCubit extends Cubit<RegisterState>
   TextEditingController passwordConfirmController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String getPassword() => passwordController.text;
   XFile? image;
   bool showPassword = false;
   bool showConfirmPassword = false;

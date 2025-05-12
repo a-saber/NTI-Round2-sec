@@ -8,6 +8,7 @@ import 'package:nti_r2/core/utils/app_assets.dart';
 import 'package:nti_r2/core/utils/app_colors.dart';
 import 'package:nti_r2/core/widgets/custom_svg.dart';
 import 'package:nti_r2/features/auth/views/login_view.dart';
+import 'package:nti_r2/features/home/views/home_view.dart';
 
 import 'get_start_view.dart';
 
@@ -36,8 +37,18 @@ class _SplashViewState extends State<SplashView> {
           CacheData.firstTime = CacheHelper.getData(key: CacheKeys.firstTime);
           if(CacheData.firstTime != null)
           {
-            // goto login
-            MyNavigator.goTo(screen: ()=> LoginView(), isReplace: true);
+            // check is logged in
+            CacheData.accessToken = CacheHelper.getData(key: CacheKeys.accessToken);
+            if(CacheData.accessToken != null)
+            {
+              // TODO:
+              MyNavigator.goTo(screen: ()=> HomeView(), isReplace: true);
+            }
+            else
+            {
+              // goto login
+              MyNavigator.goTo(screen: ()=> LoginView(), isReplace: true);
+            }
           }
           else// first time
           {

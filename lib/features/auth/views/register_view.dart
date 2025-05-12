@@ -49,9 +49,6 @@ class RegisterView extends StatelessWidget {
                 },
                 builder: (context, state)
                 {
-                  var passValidator = PasswordValidator(
-                      confirm: RegisterCubit.get(context).getPassword()
-                  );
                   return Form(
                     key: RegisterCubit.get(context).formKey,
                     child: Padding(
@@ -101,6 +98,9 @@ class RegisterView extends StatelessWidget {
                           ),
                           SizedBox(height: 20,),
                           CustomFormField(
+                            onChanged: (value){
+                              (context as Element).markNeedsBuild();
+                            },
                           obscureText:RegisterCubit.get(context).showPassword,
                             validator: PasswordValidator(),
                             controller: RegisterCubit.get(context).passwordController,
@@ -110,7 +110,9 @@ class RegisterView extends StatelessWidget {
                           SizedBox(height: 20,),
                           CustomFormField(
                             obscureText:RegisterCubit.get(context).showConfirmPassword,
-                            validator: passValidator,
+                            validator: PasswordValidator(
+                                confirm: RegisterCubit.get(context).passwordController.text
+                            ),
                           suffixIcon: IconButton(onPressed: RegisterCubit.get(context).changeConfirmPasswordVisibility,
                               icon: Icon(Icons.lock)),
                             controller: RegisterCubit.get(context).passwordConfirmController,
