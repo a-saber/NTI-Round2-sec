@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:nti_r2/core/cache/cache_helper.dart';
+import 'package:nti_r2/core/cache/cache_keys.dart';
 import 'package:nti_r2/core/helper/my_navigator.dart';
 import 'package:nti_r2/core/helper/my_responsive.dart';
 import 'package:nti_r2/core/translation/translation_keys.dart';
@@ -83,6 +85,15 @@ class HomeView extends StatelessWidget {
             );
           },
         ),
+        actions:
+        [
+          TextButton(onPressed: ()async
+          {
+            await CacheHelper.removeData(key: CacheKeys.accessToken);
+            await CacheHelper.removeData(key: CacheKeys.refreshToken);
+            MyNavigator.goTo(screen: LoginView(), isReplace: true);
+          }, child: Text('Logout'))
+        ],
       ),
     );
   }

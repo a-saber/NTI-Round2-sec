@@ -1,3 +1,5 @@
+import 'package:nti_r2/core/cache/cache_data.dart';
+import 'package:nti_r2/core/cache/cache_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper

@@ -13,15 +13,18 @@ class UserCubit extends Cubit<UserState>
   {
     emit(UserGetSuccess(userModel: user));
   }
-  void getUserDataFromAPI()async
+  Future<bool> getUserDataFromAPI()async
   {
     var response =await repo.getUserData();
-    response.fold((error)
+
+    return response.fold((error)
     {
       emit(UserGetError(error: error));
+      return false;
     }, (userModel)
     {
       emit(UserGetSuccess(userModel: userModel));
+      return true;
     });
   }
 

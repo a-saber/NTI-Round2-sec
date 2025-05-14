@@ -26,38 +26,42 @@ class _SplashViewState extends State<SplashView> {
     navigate(context);
     super.initState();
   }
-  void navigate(context)
+  void navigate(context)async
   {
-    Future.delayed(
-        Duration(
-            seconds: 2
-        ),
-            ()
-        {
-          // navigate to lets start view
-          CacheData.firstTime = CacheHelper.getData(key: CacheKeys.firstTime);
-          if(CacheData.firstTime != null)
-          {
-            // check is logged in
-            CacheData.accessToken = CacheHelper.getData(key: CacheKeys.accessToken);
-            if(CacheData.accessToken != null)
-            {
-              UserCubit.get(context).getUserDataFromAPI();
-              MyNavigator.goTo(screen: ()=> HomeView(), isReplace: true);
-            }
-            else
-            {
-              // goto login
-              MyNavigator.goTo(screen: ()=> LoginView(), isReplace: true);
-            }
-          }
-          else// first time
-          {
-            MyNavigator.goTo(screen: ()=> GetStartView(), isReplace: true);
-          }
-
-        }
-    );
+ Future.delayed((Duration(milliseconds: 500)),
+        ()
+     {
+       // navigate to lets start view
+       CacheData.firstTime = CacheHelper.getData(key: CacheKeys.firstTime);
+       if(CacheData.firstTime != null)
+       {
+         // check is logged in
+         CacheData.accessToken = CacheHelper.getData(key: CacheKeys.accessToken);
+         if(CacheData.accessToken != null)
+         {
+           UserCubit.get(context).getUserDataFromAPI()
+               .then((bool result)
+           {
+             if(result) {
+               MyNavigator.goTo(screen: ()=> HomeView(), isReplace: true);
+             }
+             else
+             {
+               MyNavigator.goTo(screen: ()=> LoginView(), isReplace: true);
+             }
+           });
+         }
+         else
+         {
+           // goto login
+           MyNavigator.goTo(screen: ()=> LoginView(), isReplace: true);
+         }
+       }
+       else// first time
+           {
+         MyNavigator.goTo(screen: ()=> GetStartView(), isReplace: true);
+       }
+     });
   }
 
   @override

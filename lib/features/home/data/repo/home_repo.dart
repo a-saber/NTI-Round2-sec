@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:nti_r2/core/network/api_helper.dart';
+import 'package:nti_r2/core/network/api_response.dart';
 import 'package:nti_r2/core/network/end_points.dart';
 import 'package:nti_r2/features/home/data/models/user_model.dart';
 
@@ -16,7 +17,7 @@ class HomeRepo
   {
     try
     {
-      var response = await apiHelper.getRequest(endPoint: EndPoints.getUserData, isProtected: true);
+      ApiResponse response = await apiHelper.getRequest(endPoint: EndPoints.getUserData, isProtected: true);
       LoginResponseModel loginResponseModel =
       LoginResponseModel.fromJson(response.data);
       if(loginResponseModel.status != null && loginResponseModel.status == true)
@@ -38,15 +39,8 @@ class HomeRepo
     }
     catch(e)
     {
-      if(e is DioException)
-      {
-        if(e.response != null && e.response?.data['message'] != null) {
-          return Left(e.response?.data['message']);
-        }
-      }
-
-      print("Error ${e.toString()}");
-      return Left(e.toString());
+      ApiResponse errorResponse = ApiResponse.fromError(e);
+      return Left(errorResponse.message);
     }
 
   }

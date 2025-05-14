@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nti_r2/core/cache/cache_helper.dart';
 import 'package:nti_r2/core/cache/cache_keys.dart';
 import 'package:nti_r2/core/network/api_helper.dart';
+import 'package:nti_r2/core/network/api_response.dart';
 import 'package:nti_r2/core/network/end_points.dart';
 import 'package:nti_r2/features/home/data/models/user_model.dart';
 
@@ -58,7 +59,7 @@ class AuthRepo
   {
     try
     {
-      Response response = await apiHelper.postRequest(
+      ApiResponse response = await apiHelper.postRequest(
         endPoint: EndPoints.login,
         data:
         {

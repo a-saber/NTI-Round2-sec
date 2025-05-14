@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:nti_r2/core/models/default_response_model.dart';
 import 'package:nti_r2/core/network/api_helper.dart';
+import 'package:nti_r2/core/network/api_response.dart';
 import 'package:nti_r2/core/network/end_points.dart';
 import 'package:nti_r2/features/add_task/data/models/get_tasks_response_model.dart';
 
@@ -18,16 +18,15 @@ class TasksRepo
     try
     {
 
-      var response = await apiHelper.postRequest(
+      ApiResponse response = await apiHelper.postRequest(
         endPoint: EndPoints.addTask,
         isProtected: true,
         data: await task.toJson()
       );
-      DefaultResponseModel responseModel = DefaultResponseModel.fromJson(response.data);
 
-      if(responseModel.status != null && responseModel.status == true)
+      if(response.status && response.status == true)
       {
-        return Right(responseModel.message??"Task added successfully");
+        return Right(response.message);
       }
       else
       {
