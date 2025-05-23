@@ -59,7 +59,9 @@ class MyApp extends StatelessWidget {
           fontFamily: AppTextStyles.fontFamily,
           scaffoldBackgroundColor: AppColors.scaffoldBackground
         ),
-        home: TestFirebaseView(),
+        home: FirebaseAuth.instance.currentUser != null && FirebaseAuth.instance.currentUser!.emailVerified ?
+        HomeScreen():
+        TestFirebaseView(),
         // home: TestNavBar(),
         // home: SplashView(),
       ),
