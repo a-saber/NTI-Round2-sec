@@ -92,15 +92,7 @@ class AuthRepo
     }
     catch(e)
     {
-      if(e is DioException)
-      {
-        if(e.response != null && e.response?.data['message'] != null) {
-          return Left(e.response?.data['message']);
-        }
-      }
-
-      print("Error ${e.toString()}");
-      return Left(e.toString());
+      return Left(ApiResponse.fromError(e).message);
     }
 
   }

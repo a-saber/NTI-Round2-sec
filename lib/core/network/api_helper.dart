@@ -15,8 +15,8 @@ class ApiHelper
     _instance.initDio();
     return _instance;
   }
-
   ApiHelper._init();
+
   Dio dio = Dio(
     BaseOptions(
       baseUrl: EndPoints.baseUrl,
@@ -112,7 +112,7 @@ class ApiHelper
         options: Options(
             headers:
             {
-              if(isProtected) 'Authorization': 'Bearer ${sendRefreshToken? CacheHelper.getData(key: CacheKeys.refreshToken): CacheData.accessToken}',
+              if(isProtected) 'Authorization': 'Bearer ${sendRefreshToken? CacheHelper.getData(key: CacheKeys.refreshToken): CacheHelper.getData(key: CacheKeys.accessToken)}',
             }
         )
     ));

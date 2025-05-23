@@ -9,7 +9,6 @@ import 'login_state.dart';
 class LoginCubit extends Cubit<LoginState>
 {
   LoginCubit():super(LoginInitState());
-
   static LoginCubit get(context) => BlocProvider.of(context);
 
   TextEditingController emailController = TextEditingController();
