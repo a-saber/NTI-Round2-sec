@@ -239,64 +239,60 @@ class _TestFirebaseViewState extends State<TestFirebaseView> {
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    getTasks();
-
-    super.initState();
-  }
-  Future getTasks()async
-  {
-    FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('tasks').orderBy('date', descending: true)
-        // .where('title', whereIn: ['task 01', 'task 02'] )
-        .get().then((value)
-    {
-      setState(() {
-        result =  value.docs;
-      });
-    });
-  }
-  List<QueryDocumentSnapshot<Map<String, dynamic>>>  result =[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: ()async
       {
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>AddNewTask())).then((value)async{
-          print("value is $value");
-          if(value == true)
-          {
-            await getTasks();
-          }
-        });
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>AddNewTask()));
       }),
-      body: ListView.builder(
-        itemCount: result.length,
-        itemBuilder: (context, index)=>Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-              color: Colors.grey,
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('tasks').orderBy('date', descending: true).limitToLast(15).snapshots(),
+        builder: (context, snapshot)
+        {
+          if(snapshot.connectionState == ConnectionState.waiting)
+          {
+            return Center(child: CircularProgressIndicator(),);
+          }
+          else if(snapshot.hasError)
+          {
+            return Center(child: Text(snapshot.error.toString()),);
+          }
+          else if(snapshot.hasData)
+          {
+            return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index)
+                {
+                  var item = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                  return Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
 
-            children: [
-              Text(result[index].data()['title']),
-              Text(result[index].data()['description']),
-            ],
-          ),
-        )),
+                      children: [
+                        Text(item['title']??''),
+                        Text(item['description']??''),
+                      ],
+                    ),
+                  );
+                }
+            );
+          }
+          else {
+            return Center(child: Text('No Data'),);
+          }
+        }),
     );
   }
 }
